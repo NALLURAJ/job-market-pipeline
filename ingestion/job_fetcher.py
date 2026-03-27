@@ -63,7 +63,11 @@ for query in queries:
     jobs = data.get("data", [])
     print(f"Query: {query} — Found {len(jobs)} jobs")
     for job in jobs:
-
+        check_job_sql = "SELECT job_id FROM job_postings WHERE source_url = %s"
+        cursor.execute(check_job_sql, (job.get("job_apply_link"),))
+        if cursor.fetchone():
+            continue
+        
         check_sql = "select company_id from companies where company_name = %s"
         cursor.execute(check_sql, (job.get("employer_name"),))
         result = cursor.fetchone()

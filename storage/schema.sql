@@ -45,3 +45,12 @@ skill_name varchar(100),
 skill_type enum('technical','soft','certification'),
 created_at timestamp
 );
+ALTER TABLE job_postings MODIFY source_platform VARCHAR(255);
+
+DELETE FROM job_postings WHERE job_id > 0;
+DELETE FROM companies WHERE company_id > 0;
+
+
+
+
+
