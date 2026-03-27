@@ -2,11 +2,10 @@ import requests
 import json
 import mysql.connector 
 import boto3
+from config.config import API_KEY, DB_CONFIG, s3_Bucket
 
 API_URL = "https://jsearch.p.rapidapi.com/search"
-API_KEY = "989e12b9f9msheb8e8a127166f0fp16650djsnca054c3b53ba"  
-USE_CACHE = True
-s3_Bucket = "job-market-pipeline-raw-nalluraj"
+USE_CACHE = False
 s3_Client = boto3.client("s3") 
  # Set to False to fetch fresh data from the API instead of using cached files
 headers = {
@@ -14,12 +13,7 @@ headers = {
     "X-RapidAPI-Host": "jsearch.p.rapidapi.com"
 }
 
-db = mysql.connector.connect(
-    host="localhost",
-    user="root",
-    password="aDMINnALLU",
-    database="job_market"
-)
+db = mysql.connector.connect(**DB_CONFIG)
 cursor = db.cursor()
 
 if db is not None:
