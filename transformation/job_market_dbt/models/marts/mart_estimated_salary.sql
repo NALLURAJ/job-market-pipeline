@@ -16,10 +16,12 @@ SELECT
     jp.salary_max,
     jp.salary_avg,
     a.level_avg_salary,
-    CASE 
+        CASE 
         WHEN jp.salary_avg IS NOT NULL THEN jp.salary_avg
-        ELSE a.level_avg_salary
+        WHEN a.level_avg_salary IS NOT NULL THEN a.level_avg_salary
+        ELSE (SELECT ROUND(AVG(salary_avg), 2) FROM {{ ref('stg_job_postings') }} WHERE salary_avg IS NOT NULL)
     END AS estimated_salary,
+
     CASE 
         WHEN jp.salary_avg IS NOT NULL THEN 'actual'
         ELSE 'estimated'
