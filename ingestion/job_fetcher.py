@@ -8,7 +8,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from config.config import API_KEY, DB_CONFIG, s3_Bucket
 
 API_URL = "https://jsearch.p.rapidapi.com/search"
-USE_CACHE = True
+USE_CACHE = False
 s3_Client = boto3.client("s3") 
  # Set to False to fetch fresh data from the API instead of using cached files
 headers = {

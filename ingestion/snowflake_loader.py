@@ -57,6 +57,40 @@ for posting in postings:
     """, (sf_company_id,) + posting[1:])
 
 print(f"Loaded {len(postings)} job postings into Snowflake")
+# Step 3: Load job skills
+mysql_cursor.execute("""
+    SELECT js.skill_name, js.skill_type, jp.source_url
+    FROM job_skills js
+    JOIN job_postings jp ON js.job_id = jp.job_id
+""")
+skills = mysql_cursor.fetchall()
+
+skills_loaded = 0
+for skill in skills:
+    skill_name, skill_type, source_url = skill
+    
+    # Get job_id from Snowflake using source_url
+    snowflake_cursor.execute("SELECT job_id FROM job_postings WHERE source_url = %s", (source_url,))
+    result = snowflake_cursor.fetchone()
+    if not result:
+        continue
+    sf_job_id = result[0]
+    
+    # Check for duplicate
+    snowflake_cursor.execute(
+        "SELECT skill_id FROM job_skills WHERE job_id = %s AND skill_name = %s",
+        (sf_job_id, skill_name)
+    )
+    if snowflake_cursor.fetchone():
+        continue
+    
+    snowflake_cursor.execute("""
+        INSERT INTO job_skills (job_id, skill_name, skill_type)
+        VALUES (%s, %s, %s)
+    """, (sf_job_id, skill_name, skill_type))
+    skills_loaded += 1
+
+print(f"Loaded {skills_loaded} skills into Snowflake")
 
 snowflake_db.commit()
 mysql_db.close()

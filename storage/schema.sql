@@ -51,6 +51,13 @@ DELETE FROM job_postings WHERE job_id > 0;
 DELETE FROM companies WHERE company_id > 0;
 
 
+sele
+select count(distinct job_id) from job_postings
 
 
+DELETE FROM job_postings WHERE job_id > 0;
 
+DELETE FROM companies WHERE company_id > 0;
+
+
+SELECT * from companies;

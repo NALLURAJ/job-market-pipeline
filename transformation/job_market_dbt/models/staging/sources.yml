@@ -1,0 +1,10 @@
+version: 2
+
+sources:
+  - name: raw
+    database: JOB_MARKET_ANALYTICS
+    schema: RAW
+    tables:
+      - name: job_postings
+      - name: companies
+      - name: job_skills

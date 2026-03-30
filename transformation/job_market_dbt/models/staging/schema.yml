@@ -1,0 +1,32 @@
+version: 2
+
+models:
+  - name: stg_job_postings
+    columns:
+      - name: job_id
+        tests:
+          - unique
+          - not_null
+      - name: title
+        tests:
+          - not_null
+  - name: mart_estimated_salary
+    columns:
+      - name: estimated_salary
+        tests:
+          - not_null
+      - name: salary_source
+        tests:
+          - accepted_values:
+              values: ['actual', 'estimated']
+
+  - name: stg_companies
+    columns:
+      - name: company_id
+        tests:
+          - unique
+          - not_null
+      - name: company_name
+        tests:
+          - not_null
+      
