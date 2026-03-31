@@ -1,0 +1,32 @@
+services:
+  airflow:
+    image: apache/airflow:2.9.0-python3.12
+    environment:
+      - AIRFLOW__CORE__EXECUTOR=SequentialExecutor
+      - AIRFLOW__CORE__LOAD_EXAMPLES=False
+      - AIRFLOW__DATABASE__SQL_ALCHEMY_CONN=sqlite:////opt/airflow/airflow.db
+      - AIRFLOW__WEBSERVER__SECRET_KEY=your-secret-key-here
+      - DB_HOST=host.docker.internal
+      - SNOWFLAKE_KEY_PATH=/opt/airflow/snowflake_key.p8
+    volumes:
+      - ./dags:/opt/airflow/dags
+      - ./logs:/opt/airflow/logs
+      - ../ingestion:/opt/airflow/ingestion
+      - ../config:/opt/airflow/config
+      - ../data:/opt/airflow/data
+      - ../transformation:/opt/airflow/transformation
+      - /Users/nalluraj/.dbt/snowflake_key.p8:/opt/airflow/snowflake_key.p8
+      - /Users/nalluraj/.aws:/home/airflow/.aws:ro
+      - ./dbt_profiles/profiles.yml:/home/airflow/.dbt/profiles.yml:ro
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
+    ports:
+      - "8080:8080"
+    command: >
+      bash -c "
+        pip install --quiet mysql-connector-python snowflake-connector-python boto3 cryptography dbt-snowflake &&
+        airflow db init &&
+        airflow users create --username nallu --password ullan --firstname Admin --lastname User --role Admin --email admin@example.com 2>/dev/null;
+        airflow webserver --port 8080 &
+        airflow scheduler
+      "

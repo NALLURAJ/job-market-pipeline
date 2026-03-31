@@ -1,0 +1,28 @@
+[2026-03-31T02:52:32.145+0000] {local_task_job_runner.py:120} INFO - ::group::Pre task execution logs
+[2026-03-31T02:52:32.159+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=non-requeueable deps ti=<TaskInstance: job_market_pipeline.fetch_jobs manual__2026-03-31T02:52:29.621265+00:00 [queued]>
+[2026-03-31T02:52:32.163+0000] {taskinstance.py:2073} INFO - Dependencies all met for dep_context=requeueable deps ti=<TaskInstance: job_market_pipeline.fetch_jobs manual__2026-03-31T02:52:29.621265+00:00 [queued]>
+[2026-03-31T02:52:32.163+0000] {taskinstance.py:2303} INFO - Starting attempt 1 of 2
+[2026-03-31T02:52:32.230+0000] {taskinstance.py:2327} INFO - Executing <Task(BashOperator): fetch_jobs> on 2026-03-31 02:52:29.621265+00:00
+[2026-03-31T02:52:32.232+0000] {standard_task_runner.py:63} INFO - Started process 92 to run task
+[2026-03-31T02:52:32.235+0000] {standard_task_runner.py:90} INFO - Running: ['airflow', 'tasks', 'run', 'job_market_pipeline', 'fetch_jobs', 'manual__2026-03-31T02:52:29.621265+00:00', '--job-id', '2', '--raw', '--subdir', 'DAGS_FOLDER/job_pipeline_dag.py', '--cfg-path', '/tmp/tmp__x6jdka']
+[2026-03-31T02:52:32.237+0000] {standard_task_runner.py:91} INFO - Job 2: Subtask fetch_jobs
+[2026-03-31T02:52:32.261+0000] {task_command.py:426} INFO - Running <TaskInstance: job_market_pipeline.fetch_jobs manual__2026-03-31T02:52:29.621265+00:00 [running]> on host e80688a50da5
+[2026-03-31T02:52:32.297+0000] {taskinstance.py:2644} INFO - Exporting env vars: AIRFLOW_CTX_DAG_OWNER='nalluraj' AIRFLOW_CTX_DAG_ID='job_market_pipeline' AIRFLOW_CTX_TASK_ID='fetch_jobs' AIRFLOW_CTX_EXECUTION_DATE='2026-03-31T02:52:29.621265+00:00' AIRFLOW_CTX_TRY_NUMBER='1' AIRFLOW_CTX_DAG_RUN_ID='manual__2026-03-31T02:52:29.621265+00:00'
+[2026-03-31T02:52:32.297+0000] {taskinstance.py:430} INFO - ::endgroup::
+[2026-03-31T02:52:32.325+0000] {subprocess.py:63} INFO - Tmp dir root location: /tmp
+[2026-03-31T02:52:32.325+0000] {subprocess.py:75} INFO - Running command: ['/usr/bin/bash', '-c', 'cd /opt/airflow && python ingestion/job_fetcher.py']
+[2026-03-31T02:52:32.330+0000] {subprocess.py:86} INFO - Output:
+[2026-03-31T02:52:33.413+0000] {subprocess.py:93} INFO - Connected to the database successfully!
+[2026-03-31T02:52:33.414+0000] {subprocess.py:93} INFO - Query: software engineer in United States — Found 10 jobs
+[2026-03-31T02:52:33.416+0000] {subprocess.py:93} INFO - Query: data engineer in United States — Found 10 jobs
+[2026-03-31T02:52:33.416+0000] {subprocess.py:93} INFO - Query: data analyst in United States — Found 10 jobs
+[2026-03-31T02:52:33.416+0000] {subprocess.py:93} INFO - Query: devops engineer in United States — Found 10 jobs
+[2026-03-31T02:52:33.416+0000] {subprocess.py:93} INFO - Query: cloud engineer in United States — Found 10 jobs
+[2026-03-31T02:52:33.416+0000] {subprocess.py:93} INFO - Data inserted successfully!
+[2026-03-31T02:52:33.416+0000] {subprocess.py:93} INFO - Total job postings inserted: 0
+[2026-03-31T02:52:33.492+0000] {subprocess.py:97} INFO - Command exited with return code 0
+[2026-03-31T02:52:33.493+0000] {taskinstance.py:441} INFO - ::group::Post task execution logs
+[2026-03-31T02:52:33.504+0000] {taskinstance.py:1205} INFO - Marking task as SUCCESS. dag_id=job_market_pipeline, task_id=fetch_jobs, execution_date=20260331T025229, start_date=20260331T025232, end_date=20260331T025233
+[2026-03-31T02:52:33.526+0000] {local_task_job_runner.py:240} INFO - Task exited with return code 0
+[2026-03-31T02:52:33.539+0000] {taskinstance.py:3482} INFO - 1 downstream tasks scheduled from follow-on schedule check
+[2026-03-31T02:52:33.540+0000] {local_task_job_runner.py:222} INFO - ::endgroup::

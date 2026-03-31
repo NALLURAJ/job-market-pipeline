@@ -1,0 +1,14 @@
+job_market_dbt:
+  outputs:
+    dev:
+      account: CXMXMNF-URC90221
+      database: JOB_MARKET_ANALYTICS
+      role: accountadmin
+      schema: ANALYTICS
+      threads: 4
+      type: snowflake
+      user: nallurajbabu1924
+      warehouse: JOB_PIPELINE_WH
+      private_key_path: /opt/airflow/snowflake_key.p8
+      authenticator: snowflake_jwt
+  target: dev
