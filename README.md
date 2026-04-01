@@ -6,8 +6,7 @@ An end-to-end data pipeline that ingests tech job postings across North America,
 
 ```
 JSearch API --> S3 + Local Cache --> MySQL --> Snowflake --> dbt --> Streamlit Dashboard
-                                       |
-                                 Airflow (daily orchestration)
+                                       
 ```
 
 ## Tech Stack
